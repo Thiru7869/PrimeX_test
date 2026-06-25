@@ -13,7 +13,8 @@ from app.core.config import settings
 from app.core.database import Base
 # Importing the models package registers every table on Base.metadata
 # so that --autogenerate can detect them.
-from app.models import User, RefreshToken  # noqa: F401
+
+from app.models import User, RefreshToken, Chat, Message  # noqa: F401
 
 config = context.config
 
