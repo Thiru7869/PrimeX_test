@@ -56,7 +56,7 @@ class ChatService:
 
         # 3. Ask the AI via the Gateway.
         try:
-            result = await self.gateway.chat(history)
+            result = await self.gateway.chat(history, user_id=user_id, db=self.db)
         except Exception as exc:
             # The turn failed; throw it all away so nothing half-saved remains.
             await self.db.rollback()

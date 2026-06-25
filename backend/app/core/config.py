@@ -36,6 +36,13 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str = ""
     GEMINI_CHAT_MODEL: str = "gemini-2.5-flash"
 
+    GROQ_API_KEY: str = ""
+    GROQ_CHAT_MODEL: str = "llama-3.3-70b-versatile"
+
+    # --- Gateway behaviour ---
+    PROVIDER_MAX_RETRIES: int = 3
+    PROVIDER_COOLDOWN_SECONDS: int = 60
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
