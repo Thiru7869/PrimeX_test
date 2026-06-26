@@ -7,9 +7,16 @@ export async function listChatsApi(): Promise<ChatSummary[]> {
 }
 
 export async function createChatApi(title?: string): Promise<ChatSummary> {
-  const res = await apiClient.post<ChatSummary>("/api/v1/chats", {
-    title: title || null,
-  });
+  const res = await apiClient.post<ChatSummary>(
+    "/api/v1/chats",
+    {
+      title: title || null,
+    },
+    {
+      timeout: 45000, // Allow extra time for Render cold starts
+    }
+  );
+
   return res.data;
 }
 
@@ -24,7 +31,13 @@ export async function sendMessageApi(
 ): Promise<Message> {
   const res = await apiClient.post<Message>(
     `/api/v1/chats/${chatId}/messages`,
-    { content }
+    {
+      content,
+    },
+    {
+      timeout: 60000, // Allow AI response + provider fallback
+    }
   );
+
   return res.data;
 }

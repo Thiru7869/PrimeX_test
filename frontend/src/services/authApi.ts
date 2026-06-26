@@ -14,6 +14,7 @@ export async function registerApi(
     password,
     display_name: displayName || null,
   });
+
   return res.data;
 }
 
@@ -25,6 +26,7 @@ export async function loginApi(
     email,
     password,
   });
+
   return res.data;
 }
 
@@ -33,6 +35,7 @@ export async function logoutApi(): Promise<void> {
   setAccessToken(null);
 }
 
+// Restore session using refresh cookie.
 export async function restoreSessionApi(): Promise<string | null> {
   try {
     const res = await axios.post(
@@ -40,7 +43,7 @@ export async function restoreSessionApi(): Promise<string | null> {
       {},
       {
         withCredentials: true,
-        timeout: 20000,
+        timeout: 20000, // Prevent infinite loading
       }
     );
 
