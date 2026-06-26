@@ -33,19 +33,22 @@ export async function logoutApi(): Promise<void> {
   setAccessToken(null);
 }
 
-// Called on app load to restore a session: uses the cookie to get a fresh token.
 export async function restoreSessionApi(): Promise<string | null> {
   try {
     const res = await axios.post(
       `${API_URL}/api/v1/auth/refresh`,
       {},
-      { withCredentials: true }
+      {
+        withCredentials: true,
+        timeout: 20000,
+      }
     );
+
     const token = res.data.access_token as string;
     setAccessToken(token);
     return token;
   } catch {
-    return null; // no valid cookie → not logged in
+    return null;
   }
 }
 
